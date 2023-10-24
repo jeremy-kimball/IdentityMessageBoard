@@ -2,6 +2,7 @@ using IdentityMessageBoard.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using IdentityMessageBoard.Models;
+using Microsoft.Build.Execution;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,10 @@ builder.Services.AddDbContext<MessageBoardContext>(options =>
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<MessageBoardContext>();
+
+builder.Services.
+
+builder.Services.AddDefaultIdentity<ApplicationUser>().AddRoles<Administrator>();
 
 var app = builder.Build();
 

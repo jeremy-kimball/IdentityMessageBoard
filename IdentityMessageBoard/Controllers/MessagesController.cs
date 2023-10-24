@@ -51,13 +51,13 @@ namespace IdentityMessageBoard.Controllers
             return View(allMessages);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult New()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public IActionResult Create(string userId, string content, int expiresIn)
         {
