@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IDictionary<string, List<Message>>
+@inject UserManager<ApplicationUser> UserManager
+
+<h1>My Messages</h1>
+<h2>Active Messages</h2>
+<input type="hidden" name="UserId" value="@UserManager.GetUserId(User)" />
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Content</th>
+            <th scope="col">Expiration Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    @foreach (var message in Model["active"])
+    {
+        <tr>
+            <td>@message.Content</td>
+            <td>@message.ExpirationDate.ToShortDateString()</td>
+            <td>
+                <form method="get" action="/Messages/MyMessages/@message.Id">
+                    <button>Edit</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="/Messages/MyMessages/@message.Id/Delete">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<h2>Expired Messages</h2>
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Content</th>
+            <th scope="col">Expiration Date</th>
+        </tr>
+    </thead>
+    @foreach (var message in Model["expired"])
+    {
+        <tr>
+            <td>@message.Content</td>
+            <td>@message.ExpirationDate.ToShortDateString()</td>
+        </tr>
+    }
+</table>
